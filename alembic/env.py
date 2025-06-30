@@ -22,10 +22,7 @@ from src.models import Base, Producer, Crop, Harvest, Sale
 config = context.config
 
 # Set the SQLAlchemy URL dynamically from environment variables.
-config.set_main_option(
-    "sqlalchemy.url",
-    f"postgresql+psycopg2://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@localhost:5432/{os.getenv('POSTGRES_DB')}",
-)
+config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

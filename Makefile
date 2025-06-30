@@ -13,3 +13,11 @@ restart:
 logs:
 	@echo "Following logs..."
 	docker-compose logs -f
+
+alembic-migrate:
+	@echo "Running Alembic migrations inside the api container..."
+	docker-compose exec api alembic upgrade head
+
+bash:
+	@echo "Opening a shell inside the api container..."
+	docker-compose exec api bash
