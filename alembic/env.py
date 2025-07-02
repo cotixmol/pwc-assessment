@@ -13,7 +13,8 @@ sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), ".."
 # Make sure 'python-dotenv' is in your requirements.txt.
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load environment variables from .env.local
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env.local'))
 
 from src.models import Base, Producer, Crop, Harvest, Sale
 

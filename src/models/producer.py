@@ -1,6 +1,4 @@
-import uuid
-from sqlalchemy import Column, String
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, String, Integer
 from src.models.base import Base
 
 
@@ -11,6 +9,6 @@ class Producer(Base):
 
     __tablename__ = "producers"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)

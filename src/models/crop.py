@@ -1,7 +1,5 @@
 import enum
-import uuid
-from sqlalchemy import Column, String, Enum
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, String, Enum, Integer
 from src.models.base import Base
 
 
@@ -22,6 +20,6 @@ class Crop(Base):
 
     __tablename__ = "crops"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     type = Column(Enum(CropType), nullable=False)
     brand = Column(String, nullable=False)
