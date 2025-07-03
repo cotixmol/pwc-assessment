@@ -2,20 +2,22 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 
-class ProducerCreate(BaseModel):
+class ProducerBase(BaseModel):
     name: str
     email: EmailStr
 
 
-class ProducerRead(BaseModel):
+class ProducerCreate(ProducerBase):
+    pass
+
+
+class ProducerRead(ProducerBase):
     id: int
-    name: str
-    email: EmailStr
 
     class Config:
         orm_mode = True
 
 
-class ProducerUpdate(BaseModel):
+class ProducerUpdate(ProducerBase):
     name: Optional[str] = None
     email: Optional[EmailStr] = None
