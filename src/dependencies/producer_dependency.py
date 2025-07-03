@@ -1,16 +1,17 @@
 from fastapi import Depends
-from src.config.db import get_db_pool
-from src.repositories.producer_repository import ProducerRepository
+from config.db import get_db_pool
+from repositories import ProducerSQLRepository, BaseSQLRepository
+from models import Producer
 from services import ProducerService
 
 
 def get_producer_repository(
-    session = Depends(get_db_pool),
-) -> ProducerRepository:
-    return ProducerRepository(session)
+    session=Depends(get_db_pool),
+) -> BaseSQLRepository[Producer]:
+    return ProducerSQLRepository(session)
 
 
 def get_producer_service(
-    producer_repository: ProducerRepository = Depends(get_producer_repository),
+    producer_repository: BaseSQLRepository[Producer] = Depends(get_producer_repository),
 ) -> ProducerService:
     return ProducerService(producer_repository)
