@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.models import Producer
+from models import Producer
 
 
 class IProducerRepository(ABC):

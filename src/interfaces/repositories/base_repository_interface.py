@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, List
-from src.models.base import Base
+from models import Base
 
 T = TypeVar("T", bound=Base)  # type: ignore
+
 
 class IBaseRepository(ABC, Generic[T]):
     """
