@@ -1,8 +1,8 @@
 from models import Crop
-from repositories import BaseRepository
+from repositories import BaseSQLRepository
 
 
-class CropRepository(BaseRepository[Crop]):
+class CropSQLRepository(BaseSQLRepository[Crop]):
     """
     Repository for managing Crop entities in the database."""
 

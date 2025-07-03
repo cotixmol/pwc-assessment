@@ -1,8 +1,8 @@
 from models import Harvest
-from repositories import BaseRepository
+from repositories import BaseSQLRepository
 
 
-class HarvestRepository(BaseRepository[Harvest]):
+class HarvestSQLRepository(BaseSQLRepository[Harvest]):
     """
     Repository for managing Harvest entities in the database."""
 

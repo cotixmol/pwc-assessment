@@ -1,8 +1,8 @@
 from models import Producer
-from repositories import BaseRepository
+from repositories import BaseSQLRepository
 
 
-class ProducerRepository(BaseRepository[Producer]):
+class ProducerSQLRepository(BaseSQLRepository[Producer]):
     """
     Repository for managing Producer entities in the database."""
 

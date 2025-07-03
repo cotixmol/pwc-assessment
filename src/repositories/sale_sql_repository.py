@@ -1,8 +1,8 @@
 from models import Sale
-from repositories import BaseRepository
+from repositories import BaseSQLRepository
 
 
-class SaleRepository(BaseRepository[Sale]):
+class SaleSQLRepository(BaseSQLRepository[Sale]):
     """
     Repository for managing Sale entities in the database."""
 

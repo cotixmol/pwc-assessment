@@ -3,7 +3,7 @@ from sqlalchemy.future import select
 from interfaces.repositories import IBaseRepository, T
 
 
-class BaseRepository(IBaseRepository[T]):
+class BaseSQLRepository(IBaseRepository[T]):
     """
     Base repository class for common database operations.
     """
