@@ -1,6 +1,6 @@
 import datetime
 from sqlalchemy import Column, Date, Float, ForeignKey, Integer
-from src.models.base import Base
+from models import Base
 
 
 class Harvest(Base):

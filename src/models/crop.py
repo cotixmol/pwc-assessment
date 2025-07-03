@@ -1,6 +1,6 @@
 import enum
 from sqlalchemy import Column, String, Enum, Integer
-from src.models.base import Base
+from models import Base
 
 
 class CropType(str, enum.Enum):

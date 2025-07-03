@@ -1,11 +1,11 @@
 import logging
 from fastapi import FastAPI
-from src.routes.hello import router
+from routes import producer_router
 from contextlib import asynccontextmanager
-from src.config.logger import setup_logging
+from config.logger import setup_logging
 import asyncpg
-from src.config import db
-from src.config.secrets import secrets
+from config import db
+from config.secrets import secrets
 
 
 setup_logging()
@@ -31,4 +31,4 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Pwc Assessment", lifespan=lifespan)
-app.include_router(router)
+app.include_router(producer_router)

@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer
-from src.models.base import Base
+from models import Base
 
 
 class Producer(Base):
