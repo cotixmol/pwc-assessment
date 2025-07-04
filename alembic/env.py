@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 # Load environment variables from .env.local
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env.local"))
 
-from models import Base, Producer, Crop, Harvest, Sale
+from src.models import Base, Producer, Crop, Harvest, Sale
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

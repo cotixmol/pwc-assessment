@@ -1,11 +1,11 @@
 import logging
 from fastapi import FastAPI
-from routes import system_router
+from src.routes import system_router
 from contextlib import asynccontextmanager
-from config.logger import setup_logging
+from src.config.logger import setup_logging
 import asyncpg
-from config import db
-from config.secrets import secrets
+from src.config import db
+from src.config.secrets import secrets
 
 
 setup_logging()

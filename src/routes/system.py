@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.config import secrets
+from src.config.secrets import secrets
 
 system_router = APIRouter()
 
