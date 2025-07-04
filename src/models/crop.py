@@ -16,9 +16,7 @@ class CropType(str, enum.Enum):
 
 
 class Crop(Base):
-    """
-    Defines a specific agricultural product with a fixed type and brand.
-    """
+    """Defines a specific agricultural product with a fixed type and brand."""
 
     __tablename__ = "crops"
 

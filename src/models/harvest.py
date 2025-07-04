@@ -6,9 +6,7 @@ from .base import Base
 
 
 class Harvest(Base):
-    """
-    Links to the specific Crop product that was harvested by a Producer.
-    """
+    """Links to the specific Crop product that was harvested by a Producer."""
 
     __tablename__ = "harvests"
 

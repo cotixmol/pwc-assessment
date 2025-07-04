@@ -4,17 +4,15 @@ from models import CropType
 from pydantic import BaseModel
 
 
-class CropBase(BaseModel):
+class CropCreate(BaseModel):
     type: CropType
     brand: str
 
 
-class CropCreate(CropBase):
-    pass
-
-
-class CropRead(CropBase):
+class CropRead(BaseModel):
     id: int
+    type: CropType
+    brand: str
 
     class Config:
         orm_mode = True

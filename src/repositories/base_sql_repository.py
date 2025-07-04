@@ -5,14 +5,9 @@ from sqlalchemy.future import select
 
 
 class BaseSQLRepository(IBaseRepository[T]):
-    """
-    Base repository class for common database operations.
-    """
+    """Base repository class for common database operations."""
 
     def __init__(self, model: Type[T], session):
-        """
-        Initializes the repository with a model and a database session.
-        """
         self.model = model
         self.session = session
 

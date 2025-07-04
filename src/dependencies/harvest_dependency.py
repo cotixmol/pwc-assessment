@@ -11,6 +11,7 @@ from services import HarvestService
 def get_harvest_repository(
     session: Annotated[Pool, Depends(get_db_pool)],
 ) -> BaseSQLRepository[Harvest]:
+    """Get the harvest repository with its session dependency."""
     return HarvestSQLRepository(session)
 
 
@@ -19,4 +20,5 @@ def get_harvest_service(
         BaseSQLRepository[Harvest], Depends(get_harvest_repository)
     ],
 ) -> HarvestService:
+    """Get the harvest service with its repository dependency."""
     return HarvestService(harvest_repository)

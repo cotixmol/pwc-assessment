@@ -4,19 +4,19 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class HarvestBase(BaseModel):
+class HarvestCreate(BaseModel):
     producer_id: int
     crop_id: int
     harvest_date: datetime.date
     quantity_tonnes: float
 
 
-class HarvestCreate(HarvestBase):
-    pass
-
-
-class HarvestRead(HarvestBase):
+class HarvestRead(BaseModel):
     id: int
+    producer_id: int
+    crop_id: int
+    harvest_date: datetime.date
+    quantity_tonnes: float
 
     class Config:
         orm_mode = True

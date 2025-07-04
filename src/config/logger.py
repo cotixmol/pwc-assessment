@@ -5,9 +5,7 @@ from .secrets import secrets
 
 
 def setup_logging():
-    """
-    Configures logger to output to the console.
-    """
+    """Configures logger to output to the console."""
     log_level = logging._nameToLevel.get(secrets.LOG_LEVEL, logging.INFO)
     log_format = "%(asctime)s - %(levelname)s - %(message)s"
 

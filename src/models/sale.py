@@ -6,9 +6,7 @@ from .base import Base
 
 
 class Sale(Base):
-    """
-    Represents a transaction where a certain quantity of a harvest is sold.
-    """
+    """Represents a transaction where a certain quantity of a harvest is sold."""
 
     __tablename__ = "sales"
 

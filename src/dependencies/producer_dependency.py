@@ -11,6 +11,7 @@ from services import ProducerService
 def get_producer_repository(
     session: Annotated[Pool, Depends(get_db_pool)],
 ) -> BaseSQLRepository[Producer]:
+    """Get the producer repository with its session dependency."""
     return ProducerSQLRepository(session)
 
 
@@ -19,4 +20,5 @@ def get_producer_service(
         BaseSQLRepository[Producer], Depends(get_producer_repository)
     ],
 ) -> ProducerService:
+    """Get the producer service with its repository dependency."""
     return ProducerService(producer_repository)

@@ -4,19 +4,19 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class SaleBase(BaseModel):
+class SaleCreate(BaseModel):
     harvest_id: int
     sale_date: datetime.date
     quantity_sold: float
     price_per_tonne: float
 
 
-class SaleCreate(SaleBase):
-    pass
-
-
-class SaleRead(SaleBase):
+class SaleRead(BaseModel):
     id: int
+    harvest_id: int
+    sale_date: datetime.date
+    quantity_sold: float
+    price_per_tonne: float
 
     class Config:
         orm_mode = True

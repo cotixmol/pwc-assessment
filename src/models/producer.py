@@ -4,9 +4,7 @@ from .base import Base
 
 
 class Producer(Base):
-    """
-    Represents the farmer or agricultural entity that produces and sells the harvest.
-    """
+    """Represents the farmer that produces and sells the harvest."""
 
     __tablename__ = "producers"
 
