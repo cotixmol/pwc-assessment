@@ -4,8 +4,8 @@ from repositories import BaseSQLRepository
 
 
 class CropSQLRepository(BaseSQLRepository[Crop]):
-    """Repository for managing Crop entities in the database."""
+    """SQL repository for Crop model, providing database operations specific to crops."""
 
     def __init__(self, session):
-        """Use the BaseSQLRepository to handle CRUD operations for Crop."""
+        """Use the BaseSQLRepository with the Crop model."""
         super().__init__(Crop, session)

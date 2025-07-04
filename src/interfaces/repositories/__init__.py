@@ -1,2 +1,5 @@
 from .base_repository_interface import IBaseRepository, T
 from .producer_repository_interface import IProducerRepository
+from .crop_repository_interface import ICropRepository
+from .harvest_repository_interface import IHarvestRepository
+from .sale_repository_interface import ISaleRepository

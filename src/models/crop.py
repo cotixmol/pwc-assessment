@@ -6,7 +6,7 @@ from .base import Base
 
 
 class CropType(str, enum.Enum):
-    """Enumeration for the high-level crop types."""
+    """Enumeration of crop types for agricultural products."""
 
     SOYBEAN = "soybean"
     WHEAT = "wheat"

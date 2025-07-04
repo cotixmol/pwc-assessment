@@ -4,8 +4,8 @@ from repositories import BaseSQLRepository
 
 
 class ProducerSQLRepository(BaseSQLRepository[Producer]):
-    """Repository for managing Producer entities in the database."""
+    """SQL repository for Crop model, providing database operations specific to producers."""
 
     def __init__(self, session):
-        """Use the BaseSQLRepository to handle CRUD operations for Producer."""
+        """Use the BaseSQLRepository with the Producer model."""
         super().__init__(Producer, session)

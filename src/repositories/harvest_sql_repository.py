@@ -4,8 +4,8 @@ from repositories import BaseSQLRepository
 
 
 class HarvestSQLRepository(BaseSQLRepository[Harvest]):
-    """Repository for managing Harvest entities in the database."""
+    """SQL repository for Crop model, providing database operations specific to harvests."""
 
     def __init__(self, session):
-        """Use the BaseSQLRepository to handle CRUD operations for Harvest."""
+        """Use the BaseSQLRepository with the Harvest model."""
         super().__init__(Harvest, session)

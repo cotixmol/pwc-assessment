@@ -4,8 +4,8 @@ from repositories import BaseSQLRepository
 
 
 class SaleSQLRepository(BaseSQLRepository[Sale]):
-    """Repository for managing Sale entities in the database."""
+    """SQL repository for Crop model, providing database operations specific to sales."""
 
     def __init__(self, session):
-        """Uses the BaseSQLRepository to handle CRUD operations for Sale."""
+        """Use the BaseSQLRepository with the Sale model."""
         super().__init__(Sale, session)
