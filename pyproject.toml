@@ -1,0 +1,27 @@
+[tool.ruff]
+
+line-length = 88
+target-version = "py313"
+
+exclude = [
+    ".venv",
+    "venv",
+    "__pycache__",
+    "alembic",
+    "__init__.py",
+]
+
+[tool.ruff.lint]
+
+#   - F, E, W: Catch basic syntax errors and style violations.
+#   - I: Enforces clean, sorted imports. This is a huge win for readability.
+#   - B: Catches likely bugs
+
+select = ["F", "E", "W", "I", "B"]
+
+# Ignore E501 ("line too long") since formatting tool handles it.
+ignore = ["E501"]
+
+
+[tool.ruff.format]
+quote-style = "double"

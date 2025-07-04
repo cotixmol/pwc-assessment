@@ -1,5 +1,5 @@
+from .base_sql_repository import BaseSQLRepository
 from .crop_sql_repository import CropSQLRepository
 from .harvest_sql_repository import HarvestSQLRepository
 from .producer_sql_repository import ProducerSQLRepository
 from .sale_sql_repository import SaleSQLRepository
-from .base_sql_repository import BaseSQLRepository

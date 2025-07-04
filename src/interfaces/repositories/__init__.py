@@ -1,2 +1,2 @@
-from .producer_repository_interface import IProducerRepository
 from .base_repository_interface import IBaseRepository, T
+from .producer_repository_interface import IProducerRepository

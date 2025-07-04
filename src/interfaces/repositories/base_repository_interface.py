@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, List
+from typing import Generic, List, TypeVar
+
 from models import Base
 
 T = TypeVar("T", bound=Base)  # type: ignore

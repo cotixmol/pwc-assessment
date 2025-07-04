@@ -1,7 +1,9 @@
 from fastapi import APIRouter
+
 from src.config.secrets import secrets
 
 system_router = APIRouter()
+
 
 @system_router.get("/health", tags=["System"])
 async def health_check():

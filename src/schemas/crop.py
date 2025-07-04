@@ -1,6 +1,7 @@
-from pydantic import BaseModel
 from typing import Optional
+
 from models import CropType
+from pydantic import BaseModel
 
 
 class CropBase(BaseModel):

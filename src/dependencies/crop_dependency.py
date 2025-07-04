@@ -1,17 +1,20 @@
-from fastapi import Depends
+from typing import Annotated
+
+from asyncpg import Pool
 from config.db import get_db_pool
-from repositories import CropSQLRepository, BaseSQLRepository
+from fastapi import Depends
 from models import Crop
+from repositories import BaseSQLRepository, CropSQLRepository
 from services import CropService
 
 
 def get_crop_repository(
-    session=Depends(get_db_pool),
+    session: Annotated[Pool, Depends(get_db_pool)],
 ) -> BaseSQLRepository[Crop]:
     return CropSQLRepository(session)
 
 
 def get_crop_service(
-    crop_repository: BaseSQLRepository[Crop] = Depends(get_crop_repository),
+    crop_repository: Annotated[BaseSQLRepository[Crop], Depends(get_crop_repository)],
 ) -> CropService:
     return CropService(crop_repository)

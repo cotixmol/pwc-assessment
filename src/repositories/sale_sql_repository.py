@@ -1,4 +1,5 @@
 from models import Sale
+
 from repositories import BaseSQLRepository
 
 

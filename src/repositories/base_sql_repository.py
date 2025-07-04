@@ -1,6 +1,7 @@
-from typing import Type, List
-from sqlalchemy.future import select
+from typing import List, Type
+
 from interfaces.repositories import IBaseRepository, T
+from sqlalchemy.future import select
 
 
 class BaseSQLRepository(IBaseRepository[T]):
