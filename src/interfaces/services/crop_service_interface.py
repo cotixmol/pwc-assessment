@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from schemas import CropCreate, CropRead, CropUpdate
+from dtos import CropCreate, CropRead, CropUpdate
 
 
 class ICropService(ABC):

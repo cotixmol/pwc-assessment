@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from schemas import ProducerCreate, ProducerRead, ProducerUpdate
+from dtos import ProducerCreate, ProducerRead, ProducerUpdate
 
 
 class IProducerService(ABC):

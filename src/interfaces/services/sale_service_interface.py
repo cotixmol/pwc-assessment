@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from schemas import SaleCreate, SaleRead, SaleUpdate
+from dtos import SaleCreate, SaleRead, SaleUpdate
 
 
 class ISaleService(ABC):

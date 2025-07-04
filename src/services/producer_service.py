@@ -1,6 +1,6 @@
+from dtos import ProducerCreate, ProducerRead, ProducerUpdate
 from interfaces.repositories import IProducerRepository
 from interfaces.services import IProducerService
-from schemas import ProducerCreate, ProducerRead, ProducerUpdate
 
 
 class ProducerService(IProducerService):

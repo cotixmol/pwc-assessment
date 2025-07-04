@@ -1,6 +1,6 @@
+from dtos import CropCreate, CropRead, CropUpdate
 from interfaces.repositories import ICropRepository
 from interfaces.services import ICropService
-from schemas import CropCreate, CropRead, CropUpdate
 
 
 class CropService(ICropService):

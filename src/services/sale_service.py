@@ -1,6 +1,6 @@
+from dtos import SaleCreate, SaleRead, SaleUpdate
 from interfaces.repositories import ISaleRepository
 from interfaces.services import ISaleService
-from schemas import SaleCreate, SaleRead, SaleUpdate
 
 
 class SaleService(ISaleService):

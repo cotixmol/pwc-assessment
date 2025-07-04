@@ -1,6 +1,6 @@
+from dtos import HarvestCreate, HarvestRead, HarvestUpdate
 from interfaces.repositories import IHarvestRepository
 from interfaces.services import IHarvestService
-from schemas import HarvestCreate, HarvestRead, HarvestUpdate
 
 
 class HarvestService(IHarvestService):
