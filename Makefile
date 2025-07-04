@@ -21,3 +21,7 @@ alembic-migrate:
 bash:
 	@echo "Opening a shell inside the api container..."
 	docker-compose exec api bash
+
+pre-commit:
+	@echo "Running pre-commit hooks..."
+	pre-commit run --all-files
