@@ -1,7 +1,7 @@
 from typing import Optional
 
 from models import CropType
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class CropCreate(BaseModel):
@@ -14,8 +14,7 @@ class CropRead(BaseModel):
     type: CropType
     brand: str
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CropUpdate(BaseModel):

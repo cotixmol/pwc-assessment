@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class ProducerCreate(BaseModel):
@@ -13,8 +13,7 @@ class ProducerRead(BaseModel):
     email: EmailStr
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ProducerUpdate(BaseModel):

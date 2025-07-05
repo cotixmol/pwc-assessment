@@ -18,12 +18,12 @@ class ISaleService(ABC):
 
     @abstractmethod
     def create_sale(self, sale_data: SaleCreate) -> SaleRead:
-        """Create a new sale."""
+        """Creates a new sale after validating the available stock for the crop type."""
         pass
 
     @abstractmethod
     def update_sale(self, sale_id: int, sale_data: SaleUpdate) -> SaleRead:
-        """Update an existing sale."""
+        """Updates an existing sale, re-validating stock levels."""
         pass
 
     @abstractmethod

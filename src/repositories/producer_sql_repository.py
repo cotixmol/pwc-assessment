@@ -1,5 +1,4 @@
 from models import Producer
-
 from repositories import BaseSQLRepository
 
 

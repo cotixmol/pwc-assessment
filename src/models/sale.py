@@ -1,8 +1,9 @@
 import datetime
 
-from sqlalchemy import Column, Date, Float, ForeignKey, Integer
+from sqlalchemy import Column, Date, Enum, Float, ForeignKey, Integer
 
 from .base import Base
+from .crop import CropType
 
 
 class Sale(Base):
@@ -10,8 +11,9 @@ class Sale(Base):
 
     __tablename__ = "sales"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    harvest_id = Column(Integer, ForeignKey("harvests.id"), nullable=False)
-    sale_date = Column(Date, default=datetime.date.today, nullable=False)
+    id = Column(Integer, primary_key=True, index=True)
+    producer_id = Column(Integer, ForeignKey("producers.id"), nullable=False)
+    crop_type = Column(Enum(CropType), nullable=False)
     quantity_sold = Column(Float, nullable=False)
     price_per_tonne = Column(Float, nullable=False)
+    sale_date = Column(Date, default=datetime.date.today, nullable=False)

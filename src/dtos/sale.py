@@ -1,29 +1,30 @@
 import datetime
 from typing import Optional
 
-from pydantic import BaseModel
+from models.crop import CropType
+from pydantic import BaseModel, ConfigDict, PositiveFloat
 
 
 class SaleCreate(BaseModel):
-    harvest_id: int
+    producer_id: int
+    crop_type: CropType
     sale_date: datetime.date
-    quantity_sold: float
-    price_per_tonne: float
+    quantity_sold: PositiveFloat
+    price_per_tonne: PositiveFloat
 
 
 class SaleRead(BaseModel):
     id: int
-    harvest_id: int
+    producer_id: int
+    crop_type: CropType
     sale_date: datetime.date
-    quantity_sold: float
-    price_per_tonne: float
+    quantity_sold: PositiveFloat
+    price_per_tonne: PositiveFloat
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class SaleUpdate(BaseModel):
-    harvest_id: Optional[int] = None
     sale_date: Optional[datetime.date] = None
-    quantity_sold: Optional[float] = None
-    price_per_tonne: Optional[float] = None
+    quantity_sold: Optional[PositiveFloat] = None
+    price_per_tonne: Optional[PositiveFloat] = None
