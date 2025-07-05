@@ -2,39 +2,48 @@ import os
 import sys
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
+from sqlalchemy import engine_from_config, pool
 from alembic import context
+from dotenv import load_dotenv
 
 # This ensures we can import from the 'src' directory.
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Make sure 'python-dotenv' is in your requirements.txt.
-from dotenv import load_dotenv
-
-# Load environment variables from .env.local
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env.local"))
-
 from src.models import Base, Producer, Crop, Harvest, Sale
+
+# Get the project root directory
+project_root = os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
+
+dotenv_local_path = os.path.join(project_root, '.env.local')
+dotenv_path = os.path.join(project_root, '.env')
+
+if os.path.exists(dotenv_local_path):
+    print("INFO: Loading environment from .env.local")
+    load_dotenv(dotenv_path=dotenv_local_path, override=True)
+# Otherwise, load the standard .env file for other environments (like Docker).
+elif os.path.exists(dotenv_path):
+    print("INFO: Loading environment from .env")
+    load_dotenv(dotenv_path=dotenv_path)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-# Set the SQLAlchemy URL dynamically from environment variables.
-config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+# Set the SQLAlchemy URL from the loaded environment variable.
+# REMOVE the hardcoded string replacement.
+db_url = os.getenv("DATABASE_URL")
+
+if not db_url:
+    raise ValueError("DATABASE_URL environment variable is not set.")
+config.set_main_option("sqlalchemy.url", db_url)
 
 # Interpret the config file for Python logging.
-# This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
+# Set the target metadata for autogenerate support
 target_metadata = Base.metadata
+
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
