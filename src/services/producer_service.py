@@ -1,6 +1,6 @@
 from src.dtos import ProducerCreate, ProducerRead, ProducerUpdate
 from src.exceptions import DeletionError, ProducerNotFoundError
-from src.interfaces.repositories import ICropRepository, IProducerRepository
+from src.interfaces.repositories import IProducerRepository
 from src.interfaces.services import IProducerService, IStockService
 from src.models.crop import CropType
 
@@ -12,12 +12,10 @@ class ProducerService(IProducerService):
         self,
         producer_repository: IProducerRepository,
         stock_service: IStockService,
-        crop_repository: ICropRepository,
     ):
         """Initialize the ProducerService with its dependencies."""
         self.producer_repository = producer_repository
         self.stock_service = stock_service
-        self.crop_repository = crop_repository
 
     async def get_all_producers(self) -> list[ProducerRead]:
         return await self.producer_repository.get_all()

@@ -77,6 +77,23 @@ See the `Makefile` for more useful commands.
 
 ---
 
+## 🧪 Running Producer Tests
+
+To run the unit and integration tests for the Producer (as an example of good testing practices.):
+
+```bash
+make test
+```
+or
+```bash
+pytest
+```
+
+This command runs both unit and integration tests for Producer logic and API routes.
+
+
+---
+
 ## 📝 API Documentation
 
 Once running, access the interactive API docs (Swagger UI) at:

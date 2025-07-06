@@ -34,3 +34,7 @@ docker-terminal:
 pre-commit:
 	@echo "Running pre-commit hooks..."
 	pre-commit run --all-files
+
+test:
+	@echo "Running tests..."
+	pytest
