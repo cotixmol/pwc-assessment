@@ -31,7 +31,7 @@ def upgrade() -> None:
     crops_table = sa.table(
         "crops",
         sa.column("id", sa.Integer),
-        sa.column("type", sa.String),
+        sa.column("type", sa.Enum(CropType)),
         sa.column("brand", sa.String),
     )
     harvests_table = sa.table(
@@ -65,17 +65,16 @@ def upgrade() -> None:
 
     # Crops Data (Unchanged)
     op.bulk_insert(crops_table, [
-        {"id": 1, "type": "SOYBEAN", "brand": "DonMario 46R12"},
-        {"id": 2, "type": "SOYBEAN", "brand": "Nidera A 5009 RG"},
-        {"id": 3, "type": "WHEAT", "brand": "Baguette 620"},
-        {"id": 4, "type": "WHEAT", "brand": "Klein Rayo"},
-        {"id": 5, "type": "SUNFLOWER", "brand": "Advanta 860 CL"},
-        {"id": 6, "type": "SUNFLOWER", "brand": "Nuseed Condor"},
-        {"id": 7, "type": "CORN", "brand": "LG Dekalb 7210"},
-        {"id": 8, "type": "CORN", "brand": "Breavant 2121"},
-        {"id": 9, "type": "SORGHUM", "brand": "Advanta ADV5220"},
+        {"id": 1, "type": CropType.SOYBEAN.value, "brand": "DonMario 46R12"},
+        {"id": 2, "type": CropType.SOYBEAN.value, "brand": "Nidera A 5009 RG"},
+        {"id": 3, "type": CropType.WHEAT.value, "brand": "Baguette 620"},
+        {"id": 4, "type": CropType.WHEAT.value, "brand": "Klein Rayo"},
+        {"id": 5, "type": CropType.SUNFLOWER.value, "brand": "Advanta 860 CL"},
+        {"id": 6, "type": CropType.SUNFLOWER.value, "brand": "Nuseed Condor"},
+        {"id": 7, "type": CropType.CORN.value, "brand": "LG Dekalb 7210"},
+        {"id": 8, "type": CropType.CORN.value, "brand": "Breavant 2121"},
+        {"id": 9, "type": CropType.SORGHUM.value, "brand": "Advanta ADV5220"},
     ])
-
     # Harvests Data (Unchanged)
     op.bulk_insert(harvests_table, [
         {"id": 1, "producer_id": 1, "crop_id": 1, "harvest_date": date(2024, 4, 15), "quantity_tonnes": 2500.50},
@@ -95,20 +94,20 @@ def upgrade() -> None:
 
     # Sales Data (Updated for the new schema)
     op.bulk_insert(sales_table, [
-        {"id": 1, "producer_id": 1, "crop_type": "SOYBEAN", "sale_date": date(2024, 4, 25), "quantity_sold": 1000.0, "price_per_tonne": 285.50},
-        {"id": 2, "producer_id": 1, "crop_type": "SOYBEAN", "sale_date": date(2024, 5, 10), "quantity_sold": 1500.5, "price_per_tonne": 290.00},
-        {"id": 3, "producer_id": 1, "crop_type": "CORN", "sale_date": date(2024, 4, 1), "quantity_sold": 3000.0, "price_per_tonne": 175.20},
-        {"id": 4, "producer_id": 2, "crop_type": "SUNFLOWER", "sale_date": date(2024, 3, 5), "quantity_sold": 1800.75, "price_per_tonne": 350.80},
-        {"id": 5, "producer_id": 2, "crop_type": "WHEAT", "sale_date": date(2024, 12, 15), "quantity_sold": 2000.0, "price_per_tonne": 220.00},
-        {"id": 11, "producer_id": 2, "crop_type": "WHEAT", "sale_date": date(2024, 12, 20), "quantity_sold": 2100.2, "price_per_tonne": 225.50},
-        {"id": 6, "producer_id": 3, "crop_type": "SOYBEAN", "sale_date": date(2024, 5, 20), "quantity_sold": 1550.0, "price_per_tonne": 288.75},
-        {"id": 7, "producer_id": 5, "crop_type": "SOYBEAN", "sale_date": date(2025, 5, 1), "quantity_sold": 780.0, "price_per_tonne": 295.00},
-        {"id": 8, "producer_id": 5, "crop_type": "SUNFLOWER", "sale_date": date(2025, 3, 1), "quantity_sold": 500.0, "price_per_tonne": 360.00},
-        {"id": 12, "producer_id": 5, "crop_type": "SUNFLOWER", "sale_date": date(2025, 3, 15), "quantity_sold": 600.5, "price_per_tonne": 362.40},
-        {"id": 9, "producer_id": 4, "crop_type": "CORN", "sale_date": date(2025, 4, 15), "quantity_sold": 5300.0, "price_per_tonne": 180.50},
-        {"id": 10, "producer_id": 6, "crop_type": "WHEAT", "sale_date": date(2025, 1, 25), "quantity_sold": 8000.0, "price_per_tonne": 230.00},
-        {"id": 13, "producer_id": 6, "crop_type": "SOYBEAN", "sale_date": date(2025, 5, 15), "quantity_sold": 5000.0, "price_per_tonne": 298.00},
-        {"id": 14, "producer_id": 6, "crop_type": "SOYBEAN", "sale_date": date(2025, 5, 28), "quantity_sold": 7000.0, "price_per_tonne": 301.50},
+        {"id": 1, "producer_id": 1, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 4, 25), "quantity_sold": 1000.0, "price_per_tonne": 285.50},
+        {"id": 2, "producer_id": 1, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 5, 10), "quantity_sold": 1500.5, "price_per_tonne": 290.00},
+        {"id": 3, "producer_id": 1, "crop_type": CropType.CORN.value, "sale_date": date(2024, 4, 1), "quantity_sold": 3000.0, "price_per_tonne": 175.20},
+        {"id": 4, "producer_id": 2, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2024, 3, 5), "quantity_sold": 1800.75, "price_per_tonne": 350.80},
+        {"id": 5, "producer_id": 2, "crop_type": CropType.WHEAT.value, "sale_date": date(2024, 12, 15), "quantity_sold": 2000.0, "price_per_tonne": 220.00},
+        {"id": 11, "producer_id": 2, "crop_type": CropType.WHEAT.value, "sale_date": date(2024, 12, 20), "quantity_sold": 2100.2, "price_per_tonne": 225.50},
+        {"id": 6, "producer_id": 3, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 5, 20), "quantity_sold": 1550.0, "price_per_tonne": 288.75},
+        {"id": 7, "producer_id": 5, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 1), "quantity_sold": 780.0, "price_per_tonne": 295.00},
+        {"id": 8, "producer_id": 5, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2025, 3, 1), "quantity_sold": 500.0, "price_per_tonne": 360.00},
+        {"id": 12, "producer_id": 5, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2025, 3, 15), "quantity_sold": 600.5, "price_per_tonne": 362.40},
+        {"id": 9, "producer_id": 4, "crop_type": CropType.CORN.value, "sale_date": date(2025, 4, 15), "quantity_sold": 5300.0, "price_per_tonne": 180.50},
+        {"id": 10, "producer_id": 6, "crop_type": CropType.WHEAT.value, "sale_date": date(2025, 1, 25), "quantity_sold": 8000.0, "price_per_tonne": 230.00},
+        {"id": 13, "producer_id": 6, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 15), "quantity_sold": 5000.0, "price_per_tonne": 298.00},
+        {"id": 14, "producer_id": 6, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 28), "quantity_sold": 7000.0, "price_per_tonne": 301.50},
     ])
 
 
