@@ -6,6 +6,7 @@ from fastapi.responses import JSONResponse
 
 from src.config.db import engine
 from src.config.logger import setup_logging
+from src.middleware import CorrelationIdMiddleware
 from src.routes import (
     crop_router,
     harvest_router,
@@ -30,6 +31,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Pwc Assessment", lifespan=lifespan)
+
+app.add_middleware(CorrelationIdMiddleware)
 
 
 @app.exception_handler(Exception)
