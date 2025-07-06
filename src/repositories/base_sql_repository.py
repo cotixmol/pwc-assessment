@@ -48,10 +48,7 @@ class BaseSQLRepository(IBaseRepository[T]):
     async def create(self, obj_data: dict) -> T:
         # NOTE: This block sanitizes the input dictionary before it's used to
         # create a database model. It automatically finds any Python enum members
-        # (e.g., <CropType.SOYBEAN: 'soybean'>) and converts them to their
-        # primitive values (e.g., 'soybean'). This prevents errors when the data
-        # is passed to the SQLAlchemy model constructor and makes this generic
-        # repository robustly handle any enum type.
+        # and converts them to their primitive values.
         try:
             sanitized_data = {
                 key: value.value if isinstance(value, enum.Enum) else value
