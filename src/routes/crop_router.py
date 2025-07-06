@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from src.dependencies.services import get_crop_service
 from src.dtos.crop import CropCreate, CropRead, CropUpdate
-from src.exceptions import CropNotFoundError
+from src.exceptions import CropNotFoundError, DeletionError
 from src.interfaces.services import ICropService
 
 crop_router = APIRouter(prefix="/crops", tags=["Crops"])
@@ -64,3 +64,7 @@ async def delete_crop(crop_id: int, crop_service: CropService):
         return {"detail": f"Crop ID: {crop_id} deleted successfully"}
     except CropNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
+    except DeletionError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail=str(e)
+        ) from e

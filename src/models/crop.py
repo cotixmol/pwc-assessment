@@ -13,6 +13,11 @@ class CropType(str, enum.Enum):
     SUNFLOWER = "sunflower"
     CORN = "corn"
     SORGHUM = "sorghum"
+    BARLEY = "barley"
+    OATS = "oats"
+    RYE = "rye"
+    CANOLA = "canola"
+    PEANUT = "peanut"
 
 
 class Crop(Base):

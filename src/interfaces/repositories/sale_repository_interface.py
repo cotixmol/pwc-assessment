@@ -17,3 +17,8 @@ class ISaleRepository(IBaseRepository[Sale], ABC):
         Calculates the total tonnes of a specific crop type sold by a producer.
         """
         pass
+
+    @abstractmethod
+    async def get_by_crop_type(self, crop_type: CropType) -> list[Sale]:
+        """Gets all sales associated with a specific crop ID."""
+        pass

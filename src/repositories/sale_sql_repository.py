@@ -30,3 +30,17 @@ class SaleSQLRepository(BaseSQLRepository[Sale], ISaleRepository):
         except SQLAlchemyError as e:
             logger.error("Database error in get_total_sold: %s", e, exc_info=True)
             raise RepositoryError("Failed to retrieve total sold quantity.") from e
+
+    async def get_by_crop_type(self, crop_type: CropType) -> list[Sale]:
+        """Retrieves all sales for a given crop type."""
+        try:
+            query = select(self.model).filter_by(crop_type=crop_type)
+            result = await self.session.execute(query)
+            return result.scalars().all()
+        except SQLAlchemyError as e:
+            logger.error(
+                "Database error in get_by_crop_type for Sale: %s", e, exc_info=True
+            )
+            raise RepositoryError(
+                f"Failed to retrieve sales for crop type {crop_type.value}."
+            ) from e

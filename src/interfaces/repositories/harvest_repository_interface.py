@@ -17,3 +17,8 @@ class IHarvestRepository(IBaseRepository[Harvest], ABC):
         Calculates the total tonnes of a specific crop type harvested by a producer.
         """
         pass
+
+    @abstractmethod
+    async def get_by_crop_id(self, crop_id: int) -> list[Harvest]:
+        """Gets all harvests associated with a specific crop ID."""
+        pass

@@ -35,3 +35,17 @@ class HarvestSQLRepository(BaseSQLRepository[Harvest], IHarvestRepository):
         except SQLAlchemyError as e:
             logger.error("Database error in get_total_harvested: %s", e, exc_info=True)
             raise RepositoryError("Failed to retrieve total harvested quantity.") from e
+
+    async def get_by_crop_id(self, crop_id: int) -> list[Harvest]:
+        """Retrieves all harvests associated with a specific crop ID."""
+        try:
+            query = select(self.model).filter_by(crop_id=crop_id)
+            result = await self.session.execute(query)
+            return result.scalars().all()
+        except SQLAlchemyError as e:
+            logger.error(
+                "Database error in get_by_crop_id for Harvest: %s", e, exc_info=True
+            )
+            raise RepositoryError(
+                f"Failed to retrieve harvests for crop ID {crop_id}."
+            ) from e
