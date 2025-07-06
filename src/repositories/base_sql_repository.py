@@ -62,7 +62,7 @@ class BaseSQLRepository(IBaseRepository[T]):
         try:
             obj = await self.get_by_id(obj_id)
             if obj:
-                update_data = {k: v for k, v in data.items() if v is not None}
+                update_data = data.model_dump(exclude_unset=True)
                 for key, value in update_data.items():
                     setattr(obj, key, value)
                 await self.session.commit()

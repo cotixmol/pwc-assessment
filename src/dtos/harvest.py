@@ -22,7 +22,5 @@ class HarvestRead(BaseModel):
 
 
 class HarvestUpdate(BaseModel):
-    producer_id: Optional[int] = None
-    crop_id: Optional[int] = None
     harvest_date: Optional[datetime.date] = None
     quantity_tonnes: Optional[PositiveFloat] = None
