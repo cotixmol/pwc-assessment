@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Generic, List, TypeVar
 
-from models import Base
+from src.models import Base
 
 T = TypeVar("T", bound=Base)  # type: ignore
 

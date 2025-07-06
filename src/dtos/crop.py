@@ -1,7 +1,8 @@
 from typing import Optional
 
-from models import CropType
 from pydantic import BaseModel, ConfigDict
+
+from src.models.crop import CropType
 
 
 class CropCreate(BaseModel):

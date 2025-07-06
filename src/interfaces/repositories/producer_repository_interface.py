@@ -1,4 +1,4 @@
-from models import Producer
+from src.models import Producer
 
 from .base_repository_interface import IBaseRepository
 

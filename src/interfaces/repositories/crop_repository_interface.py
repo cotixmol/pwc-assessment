@@ -1,4 +1,4 @@
-from models import Crop
+from src.models import Crop
 
 from .base_repository_interface import IBaseRepository
 

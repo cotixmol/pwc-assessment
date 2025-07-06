@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from dtos import CropCreate, CropRead, CropUpdate
+from src.dtos import CropCreate, CropRead, CropUpdate
 
 
 class ICropService(ABC):

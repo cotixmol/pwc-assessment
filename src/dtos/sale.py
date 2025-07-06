@@ -1,8 +1,9 @@
 import datetime
 from typing import Optional
 
-from models.crop import CropType
 from pydantic import BaseModel, ConfigDict, PositiveFloat
+
+from src.models.crop import CropType
 
 
 class SaleCreate(BaseModel):

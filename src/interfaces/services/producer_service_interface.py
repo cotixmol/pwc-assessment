@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from dtos import ProducerCreate, ProducerRead, ProducerUpdate
+from src.dtos import ProducerCreate, ProducerRead, ProducerUpdate
 
 
 class IProducerService(ABC):

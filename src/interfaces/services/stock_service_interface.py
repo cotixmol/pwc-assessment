@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from models.crop import CropType
+from src.models.crop import CropType
 
 
 class IStockService(ABC):

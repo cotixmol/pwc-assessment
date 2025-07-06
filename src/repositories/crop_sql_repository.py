@@ -1,5 +1,5 @@
-from models import Crop
-from repositories import BaseSQLRepository
+from src.models import Crop
+from src.repositories import BaseSQLRepository
 
 
 class CropSQLRepository(BaseSQLRepository[Crop]):

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from dtos import HarvestCreate, HarvestRead, HarvestUpdate
+from src.dtos import HarvestCreate, HarvestRead, HarvestUpdate
 
 
 class IHarvestService(ABC):

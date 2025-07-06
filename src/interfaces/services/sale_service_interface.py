@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from dtos import SaleCreate, SaleRead, SaleUpdate
+from src.dtos import SaleCreate, SaleRead, SaleUpdate
 
 
 class ISaleService(ABC):

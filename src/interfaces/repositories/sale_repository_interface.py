@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from models import Sale
-from models.crop import CropType
+from src.models import Sale
+from src.models.crop import CropType
 
 from .base_repository_interface import IBaseRepository
 

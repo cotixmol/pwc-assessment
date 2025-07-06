@@ -1,5 +1,5 @@
-from models import Producer
-from repositories import BaseSQLRepository
+from src.models import Producer
+from src.repositories import BaseSQLRepository
 
 
 class ProducerSQLRepository(BaseSQLRepository[Producer]):

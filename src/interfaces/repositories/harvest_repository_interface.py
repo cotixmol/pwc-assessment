@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from models import Harvest
-from models.crop import CropType  # Assuming CropType is defined in models.crop
+from src.models import Harvest
+from src.models.crop import CropType
 
 from .base_repository_interface import IBaseRepository
 
