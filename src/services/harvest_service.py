@@ -1,8 +1,14 @@
 from src.dtos import HarvestCreate, HarvestRead, HarvestUpdate
-from src.exceptions import CropNotFoundError, DeletionError, HarvestNotFoundError
+from src.exceptions import (
+    CropNotFoundError,
+    DeletionError,
+    HarvestNotFoundError,
+    ProducerNotFoundError,
+)
 from src.interfaces.repositories import (
     ICropRepository,
     IHarvestRepository,
+    IProducerRepository,
     ISaleRepository,
 )
 from src.interfaces.services import IHarvestService
@@ -16,11 +22,13 @@ class HarvestService(IHarvestService):
         harvest_repository: IHarvestRepository,
         crop_repository: ICropRepository,
         sale_repository: ISaleRepository,
+        producer_repository: IProducerRepository,
     ):
         """Initialize the HarvestService with a harvest repository."""
         self.harvest_repository = harvest_repository
         self.crop_repository = crop_repository
         self.sale_repository = sale_repository
+        self.producer_repository = producer_repository
 
     async def get_all_harvests(self) -> list[HarvestRead]:
         return await self.harvest_repository.get_all()
@@ -32,6 +40,12 @@ class HarvestService(IHarvestService):
         return harvest
 
     async def create_harvest(self, harvest_data: HarvestCreate) -> HarvestRead:
+        producer = await self.producer_repository.get_by_id(harvest_data.producer_id)
+        if not producer:
+            raise ProducerNotFoundError(harvest_data.producer_id)
+        crop_to_delete = await self.crop_repository.get_by_id(harvest_data.crop_id)
+        if not crop_to_delete:
+            raise CropNotFoundError(harvest_data.crop_id)
         return await self.harvest_repository.create(harvest_data.model_dump())
 
     async def update_harvest(

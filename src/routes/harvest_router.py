@@ -4,7 +4,11 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from src.dependencies.services import get_harvest_service
 from src.dtos.harvest import HarvestCreate, HarvestRead, HarvestUpdate
-from src.exceptions import HarvestNotFoundError
+from src.exceptions import (
+    CropNotFoundError,
+    HarvestNotFoundError,
+    ProducerNotFoundError,
+)
 from src.interfaces.services import IHarvestService
 
 harvest_router = APIRouter(prefix="/harvests", tags=["Harvests"])
@@ -43,7 +47,10 @@ async def create_harvest(
     """
     Create a new harvest.
     """
-    return await harvest_service.create_harvest(harvest)
+    try:
+        return await harvest_service.create_harvest(harvest)
+    except (HarvestNotFoundError, CropNotFoundError, ProducerNotFoundError) as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
 
 
 @harvest_router.put("/{harvest_id}", response_model=HarvestRead)
