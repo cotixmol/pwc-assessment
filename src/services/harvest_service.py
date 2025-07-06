@@ -1,15 +1,26 @@
 from src.dtos import HarvestCreate, HarvestRead, HarvestUpdate
-from src.exceptions import HarvestNotFoundError
-from src.interfaces.repositories import IHarvestRepository
+from src.exceptions import CropNotFoundError, DeletionError, HarvestNotFoundError
+from src.interfaces.repositories import (
+    ICropRepository,
+    IHarvestRepository,
+    ISaleRepository,
+)
 from src.interfaces.services import IHarvestService
 
 
 class HarvestService(IHarvestService):
     """Service class for managing harvest-related business logic."""
 
-    def __init__(self, harvest_repository: IHarvestRepository):
+    def __init__(
+        self,
+        harvest_repository: IHarvestRepository,
+        crop_repository: ICropRepository,
+        sale_repository: ISaleRepository,
+    ):
         """Initialize the HarvestService with a harvest repository."""
         self.harvest_repository = harvest_repository
+        self.crop_repository = crop_repository
+        self.sale_repository = sale_repository
 
     async def get_all_harvests(self) -> list[HarvestRead]:
         return await self.harvest_repository.get_all()
@@ -34,7 +45,31 @@ class HarvestService(IHarvestService):
         return updated_harvest
 
     async def delete_harvest(self, harvest_id: int) -> bool:
-        deleted = await self.harvest_repository.delete(harvest_id)
-        if not deleted:
+        harvest_to_delete = await self.harvest_repository.get_by_id(harvest_id)
+        if not harvest_to_delete:
             raise HarvestNotFoundError(harvest_id)
+
+        crop = await self.crop_repository.get_by_id(harvest_to_delete.crop_id)
+        if not crop:
+            raise CropNotFoundError(harvest_to_delete.crop_id)
+        crop_type = crop.type
+
+        total_harvested = (
+            await self.harvest_repository.get_total_harvested_by_producer_and_crop_type(
+                harvest_to_delete.producer_id, crop_type
+            )
+        )
+        total_sold = (
+            await self.sale_repository.get_total_sold_by_producer_and_crop_type(
+                harvest_to_delete.producer_id, crop_type
+            )
+        )
+
+        if total_sold > (total_harvested - harvest_to_delete.quantity_tonnes):
+            raise DeletionError(
+                f"Harvest ID: {harvest_id} cannot be deleted. Deleting this would result in a negative stock balance for {crop_type.value}."
+            )
+
+        deleted = await self.harvest_repository.delete(harvest_id)
+
         return deleted

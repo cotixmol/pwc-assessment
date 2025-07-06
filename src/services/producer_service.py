@@ -1,15 +1,23 @@
 from src.dtos import ProducerCreate, ProducerRead, ProducerUpdate
-from src.exceptions import ProducerNotFoundError
-from src.interfaces.repositories import IProducerRepository
-from src.interfaces.services import IProducerService
+from src.exceptions import DeletionError, ProducerNotFoundError
+from src.interfaces.repositories import ICropRepository, IProducerRepository
+from src.interfaces.services import IProducerService, IStockService
+from src.models.crop import CropType
 
 
 class ProducerService(IProducerService):
     """Service class for managing producer-related business logic."""
 
-    def __init__(self, producer_repository: IProducerRepository):
-        """Initialize the ProducerService with a producer repository."""
+    def __init__(
+        self,
+        producer_repository: IProducerRepository,
+        stock_service: IStockService,
+        crop_repository: ICropRepository,
+    ):
+        """Initialize the ProducerService with its dependencies."""
         self.producer_repository = producer_repository
+        self.stock_service = stock_service
+        self.crop_repository = crop_repository
 
     async def get_all_producers(self) -> list[ProducerRead]:
         return await self.producer_repository.get_all()
@@ -34,6 +42,22 @@ class ProducerService(IProducerService):
         return updated_producer
 
     async def delete_producer(self, producer_id: int) -> bool:
+        producer = await self.producer_repository.get_by_id(producer_id)
+        if not producer:
+            raise ProducerNotFoundError(producer_id)
+
+        stock_errors = []
+        for crop_type in CropType:
+            stock = await self.stock_service.get_available_stock(producer_id, crop_type)
+            if stock > 0:
+                stock_errors.append(f"{stock} tonnes of {crop_type.value}")
+
+        if stock_errors:
+            error_details = ", ".join(stock_errors)
+            raise DeletionError(
+                f"Producer ID: {producer_id} cannot be deleted. Stock found: {error_details}."
+            )
+
         deleted = await self.producer_repository.delete(producer_id)
         if not deleted:
             raise ProducerNotFoundError(producer_id)

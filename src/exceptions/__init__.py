@@ -6,4 +6,5 @@ from .exceptions import (
     CropNotFoundError,
     NotFoundError,
     RepositoryError,
+    DeletionError,
 )

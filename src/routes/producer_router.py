@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from src.dependencies.services import get_producer_service
 from src.dtos.producer import ProducerCreate, ProducerRead, ProducerUpdate
-from src.exceptions import ProducerNotFoundError
+from src.exceptions import DeletionError, ProducerNotFoundError
 from src.interfaces.services import IProducerService
 
 producer_router = APIRouter(prefix="/producers", tags=["Producers"])
@@ -77,3 +77,7 @@ async def delete_producer(
         return {"detail": f"Producer ID: {producer_id} deleted successfully"}
     except ProducerNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
+    except DeletionError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail=str(e)
+        ) from e

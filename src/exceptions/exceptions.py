@@ -55,3 +55,11 @@ class RepositoryError(Exception):
     def __init__(self, message: str = "An error occurred in the repository"):
         self.message = message
         super().__init__(self.message)
+
+
+class DeletionError(Exception):
+    """Raised when an entity cannot be deleted due to business rules."""
+
+    def __init__(self, message: str):
+        self.message = message
+        super().__init__(self.message)
