@@ -27,8 +27,9 @@ class HarvestSQLRepository(BaseSQLRepository[Harvest], IHarvestRepository):
                 .join(Crop, Harvest.crop_id == Crop.id)
                 .filter(Harvest.producer_id == producer_id, Crop.type == crop_type)
             )
+
             result = await self.session.execute(stmt)
-            total_harvested = result.scalar_one_or_none()
+            total_harvested = result.scalar()
 
             return total_harvested or 0.0
         except SQLAlchemyError as e:

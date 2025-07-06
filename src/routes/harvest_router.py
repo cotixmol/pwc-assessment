@@ -61,12 +61,13 @@ async def update_harvest(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
 
 
-@harvest_router.delete("/{harvest_id}", status_code=status.HTTP_204_NO_CONTENT)
+@harvest_router.delete("/{harvest_id}", status_code=status.HTTP_202_ACCEPTED)
 async def delete_harvest(harvest_id: int, harvest_service: HarvestService):
     """
     Delete a harvest by its ID.
     """
     try:
         await harvest_service.delete_harvest(harvest_id)
+        return {"detail": f"Harvest ID: {harvest_id} deleted successfully"}
     except HarvestNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e

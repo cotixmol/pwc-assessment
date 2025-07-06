@@ -4,7 +4,11 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from src.dependencies.services import get_sale_service
 from src.dtos.sale import SaleCreate, SaleRead, SaleUpdate
-from src.exceptions import InsufficientStockError, SaleNotFoundError
+from src.exceptions import (
+    InsufficientStockError,
+    ProducerNotFoundError,
+    SaleNotFoundError,
+)
 from src.interfaces.services import ISaleService
 
 sale_router = APIRouter(prefix="/sales", tags=["Sales"])
@@ -12,7 +16,7 @@ sale_router = APIRouter(prefix="/sales", tags=["Sales"])
 SaleService = Annotated[ISaleService, Depends(get_sale_service)]
 
 
-@sale_router.get("/", response_model=list[SaleRead])
+@sale_router.get("/", response_model=list[SaleRead], response_model_exclude_none=True)
 async def read_sales(sale_service: SaleService):
     """
     Retrieve all sales.
@@ -20,7 +24,9 @@ async def read_sales(sale_service: SaleService):
     return await sale_service.get_all_sales()
 
 
-@sale_router.get("/{sale_id}", response_model=SaleRead)
+@sale_router.get(
+    "/{sale_id}", response_model=SaleRead, response_model_exclude_none=True
+)
 async def read_sale(sale_id: int, sale_service: SaleService):
     """
     Retrieve a sale by its ID.
@@ -42,6 +48,8 @@ async def create_sale(sale: SaleCreate, sale_service: SaleService):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail=str(e)
         ) from e
+    except ProducerNotFoundError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
 
 
 @sale_router.put("/{sale_id}", response_model=SaleRead)
@@ -63,12 +71,13 @@ async def update_sale(
         ) from e
 
 
-@sale_router.delete("/{sale_id}", status_code=status.HTTP_204_NO_CONTENT)
+@sale_router.delete("/{sale_id}", status_code=status.HTTP_202_ACCEPTED)
 async def delete_sale(sale_id: int, sale_service: SaleService):
     """
     Delete a sale by its ID.
     """
     try:
         await sale_service.delete_sale(sale_id)
+        return {"detail": f"Sale ID: {sale_id} deleted successfully"}
     except SaleNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e

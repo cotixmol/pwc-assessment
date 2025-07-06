@@ -94,21 +94,27 @@ def upgrade() -> None:
 
     # Sales Data (Updated for the new schema)
     op.bulk_insert(sales_table, [
-        {"id": 1, "producer_id": 1, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 4, 25), "quantity_sold": 1000.0, "price_per_tonne": 285.50},
-        {"id": 2, "producer_id": 1, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 5, 10), "quantity_sold": 1500.5, "price_per_tonne": 290.00},
-        {"id": 3, "producer_id": 1, "crop_type": CropType.CORN.value, "sale_date": date(2024, 4, 1), "quantity_sold": 3000.0, "price_per_tonne": 175.20},
-        {"id": 4, "producer_id": 2, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2024, 3, 5), "quantity_sold": 1800.75, "price_per_tonne": 350.80},
-        {"id": 5, "producer_id": 2, "crop_type": CropType.WHEAT.value, "sale_date": date(2024, 12, 15), "quantity_sold": 2000.0, "price_per_tonne": 220.00},
-        {"id": 11, "producer_id": 2, "crop_type": CropType.WHEAT.value, "sale_date": date(2024, 12, 20), "quantity_sold": 2100.2, "price_per_tonne": 225.50},
-        {"id": 6, "producer_id": 3, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 5, 20), "quantity_sold": 1550.0, "price_per_tonne": 288.75},
-        {"id": 7, "producer_id": 5, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 1), "quantity_sold": 780.0, "price_per_tonne": 295.00},
-        {"id": 8, "producer_id": 5, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2025, 3, 1), "quantity_sold": 500.0, "price_per_tonne": 360.00},
-        {"id": 12, "producer_id": 5, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2025, 3, 15), "quantity_sold": 600.5, "price_per_tonne": 362.40},
-        {"id": 9, "producer_id": 4, "crop_type": CropType.CORN.value, "sale_date": date(2025, 4, 15), "quantity_sold": 5300.0, "price_per_tonne": 180.50},
-        {"id": 10, "producer_id": 6, "crop_type": CropType.WHEAT.value, "sale_date": date(2025, 1, 25), "quantity_sold": 8000.0, "price_per_tonne": 230.00},
-        {"id": 13, "producer_id": 6, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 15), "quantity_sold": 5000.0, "price_per_tonne": 298.00},
-        {"id": 14, "producer_id": 6, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 28), "quantity_sold": 7000.0, "price_per_tonne": 301.50},
+        {"id": 1, "producer_id": 1, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 4, 25), "quantity_sold": 500.0, "price_per_tonne": 285.50},
+        {"id": 2, "producer_id": 1, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 5, 10), "quantity_sold": 700.5, "price_per_tonne": 290.00},
+        {"id": 3, "producer_id": 1, "crop_type": CropType.CORN.value, "sale_date": date(2024, 4, 1), "quantity_sold": 1000.0, "price_per_tonne": 175.20},
+        {"id": 4, "producer_id": 2, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2024, 3, 5), "quantity_sold": 200.0, "price_per_tonne": 350.80},
+        {"id": 5, "producer_id": 2, "crop_type": CropType.WHEAT.value, "sale_date": date(2024, 12, 15), "quantity_sold": 1000.0, "price_per_tonne": 220.00},
+        {"id": 11, "producer_id": 2, "crop_type": CropType.WHEAT.value, "sale_date": date(2024, 12, 20), "quantity_sold": 1500.2, "price_per_tonne": 225.50},
+        {"id": 6, "producer_id": 3, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2024, 5, 20), "quantity_sold": 120.0, "price_per_tonne": 288.75},
+        {"id": 7, "producer_id": 5, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 1), "quantity_sold": 340.0, "price_per_tonne": 295.00},
+        {"id": 8, "producer_id": 5, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2025, 3, 1), "quantity_sold": 100.0, "price_per_tonne": 360.00},
+        {"id": 12, "producer_id": 5, "crop_type": CropType.SUNFLOWER.value, "sale_date": date(2025, 3, 15), "quantity_sold": 200.5, "price_per_tonne": 362.40},
+        {"id": 9, "producer_id": 4, "crop_type": CropType.CORN.value, "sale_date": date(2025, 4, 15), "quantity_sold": 4000.0, "price_per_tonne": 180.50},
+        {"id": 10, "producer_id": 6, "crop_type": CropType.WHEAT.value, "sale_date": date(2025, 1, 25), "quantity_sold": 2840.0, "price_per_tonne": 230.00},
+        {"id": 13, "producer_id": 6, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 15), "quantity_sold": 1239.0, "price_per_tonne": 298.00},
+        {"id": 14, "producer_id": 6, "crop_type": CropType.SOYBEAN.value, "sale_date": date(2025, 5, 28), "quantity_sold": 3000.0, "price_per_tonne": 301.50},
     ])
+
+    op.execute("SELECT setval(pg_get_serial_sequence('producers', 'id'), (SELECT MAX(id) FROM producers));")
+    op.execute("SELECT setval(pg_get_serial_sequence('crops', 'id'), (SELECT MAX(id) FROM crops));")
+    op.execute("SELECT setval(pg_get_serial_sequence('harvests', 'id'), (SELECT MAX(id) FROM harvests));")
+    op.execute("SELECT setval(pg_get_serial_sequence('sales', 'id'), (SELECT MAX(id) FROM sales));")
+
 
 
 def downgrade() -> None:

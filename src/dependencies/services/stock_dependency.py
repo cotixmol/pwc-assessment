@@ -12,12 +12,17 @@ from src.services import StockService
 
 HarvestRepo = Annotated[IHarvestRepository, Depends(get_harvest_sql_repository)]
 SaleRepo = Annotated[ISaleRepository, Depends(get_sale_sql_repository)]
+ProducerRepo = Annotated[ISaleRepository, Depends(get_sale_sql_repository)]
 
 
 def get_stock_service(
-    harvest_repository: HarvestRepo, sale_repository: SaleRepo
+    harvest_repository: HarvestRepo,
+    sale_repository: SaleRepo,
+    producer_repository: ProducerRepo,
 ) -> IStockService:
     """Get the stock service with its repository dependencies."""
     return StockService(
-        harvest_repository=harvest_repository, sale_repository=sale_repository
+        harvest_repository=harvest_repository,
+        sale_repository=sale_repository,
+        producer_repository=producer_repository,
     )

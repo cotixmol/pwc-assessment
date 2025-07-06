@@ -21,12 +21,14 @@ class HarvestService(IHarvestService):
         return harvest
 
     async def create_harvest(self, harvest_data: HarvestCreate) -> HarvestRead:
-        return await self.harvest_repository.create(harvest_data)
+        return await self.harvest_repository.create(harvest_data.model_dump())
 
     async def update_harvest(
         self, harvest_id: int, harvest_data: HarvestUpdate
     ) -> HarvestRead:
-        updated_harvest = await self.harvest_repository.update(harvest_id, harvest_data)
+        updated_harvest = await self.harvest_repository.update(
+            harvest_id, harvest_data.model_dump(exclude_unset=True)
+        )
         if not updated_harvest:
             raise HarvestNotFoundError(harvest_id)
         return updated_harvest

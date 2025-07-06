@@ -54,12 +54,13 @@ async def update_crop(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
 
 
-@crop_router.delete("/{crop_id}", status_code=status.HTTP_204_NO_CONTENT)
+@crop_router.delete("/{crop_id}", status_code=status.HTTP_202_ACCEPTED)
 async def delete_crop(crop_id: int, crop_service: CropService):
     """
     Delete a crop by its ID.
     """
     try:
         await crop_service.delete_crop(crop_id)
+        return {"detail": f"Crop ID: {crop_id} deleted successfully"}
     except CropNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e

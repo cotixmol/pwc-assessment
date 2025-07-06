@@ -9,11 +9,11 @@ from src.interfaces.services import ISaleService, IStockService
 from src.services import SaleService
 
 SaleRepo = Annotated[ISaleRepository, Depends(get_sale_sql_repository)]
-StockServiceDep = Annotated[IStockService, Depends(get_stock_service)]
+StockService = Annotated[IStockService, Depends(get_stock_service)]
 
 
 def get_sale_service(
-    sale_repository: SaleRepo, stock_service: StockServiceDep
+    sale_repository: SaleRepo, stock_service: StockService
 ) -> ISaleService:
     """Get the sale service with its repository and stock service dependencies."""
-    return SaleService(repository=sale_repository, stock_service=stock_service)
+    return SaleService(sale_repository=sale_repository, stock_service=stock_service)

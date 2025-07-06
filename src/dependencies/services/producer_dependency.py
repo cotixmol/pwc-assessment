@@ -12,4 +12,4 @@ ProducerRepo = Annotated[IProducerRepository, Depends(get_producer_sql_repositor
 
 def get_producer_service(producer_repository: ProducerRepo) -> IProducerService:
     """Get the producer service with its repository dependency."""
-    return ProducerService(producer_repository)
+    return ProducerService(producer_repository=producer_repository)

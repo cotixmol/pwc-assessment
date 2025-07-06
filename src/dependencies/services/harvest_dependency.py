@@ -12,4 +12,4 @@ HarvestRepo = Annotated[IHarvestRepository, Depends(get_harvest_sql_repository)]
 
 def get_harvest_service(harvest_repository: HarvestRepo) -> IHarvestService:
     """Get the harvest service with its repository dependency."""
-    return HarvestService(harvest_repository)
+    return HarvestService(harvest_repository=harvest_repository)

@@ -25,8 +25,7 @@ class SaleSQLRepository(BaseSQLRepository[Sale], ISaleRepository):
                 Sale.producer_id == producer_id, Sale.crop_type == crop_type
             )
             result = await self.session.execute(stmt)
-            total_sold = result.scalar_one_or_none()
-
+            total_sold = result.scalar()
             return total_sold or 0.0
         except SQLAlchemyError as e:
             logger.error("Database error in get_total_sold: %s", e, exc_info=True)

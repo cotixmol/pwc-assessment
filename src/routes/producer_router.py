@@ -64,7 +64,7 @@ async def update_producer(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
 
 
-@producer_router.delete("/{producer_id}", status_code=status.HTTP_204_NO_CONTENT)
+@producer_router.delete("/{producer_id}", status_code=status.HTTP_202_ACCEPTED)
 async def delete_producer(
     producer_id: int,
     producer_service: ProducerService,
@@ -74,5 +74,6 @@ async def delete_producer(
     """
     try:
         await producer_service.delete_producer(producer_id)
+        return {"detail": f"Producer ID: {producer_id} deleted successfully"}
     except ProducerNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e

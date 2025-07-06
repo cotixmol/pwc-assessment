@@ -12,4 +12,4 @@ CropRepo = Annotated[ICropRepository, Depends(get_crop_sql_repository)]
 
 def get_crop_service(crop_repository: CropRepo) -> ICropService:
     """Get the crop service with its repository dependency."""
-    return CropService(crop_repository)
+    return CropService(crop_repository=crop_repository)

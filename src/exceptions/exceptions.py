@@ -41,9 +41,12 @@ class SaleNotFoundError(NotFoundError):
 class InsufficientStockError(Exception):
     """Raised when there is not enough stock to complete a sale."""
 
-    def __init__(self, message: str):
-        self.message = message
-        super().__init__(self.message)
+    def __init__(self, requested: float, available: float):
+        self.requested = requested
+        self.available = available
+        super().__init__(
+            f"Insufficient stock: requested {requested}, but only {available} available."
+        )
 
 
 class RepositoryError(Exception):

@@ -21,6 +21,7 @@ class SaleRead(BaseModel):
     sale_date: datetime.date
     quantity_sold: PositiveFloat
     price_per_tonne: PositiveFloat
+    available_stock: Optional[PositiveFloat] = None
 
     model_config = ConfigDict(from_attributes=True)
 

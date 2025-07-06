@@ -21,10 +21,12 @@ class CropService(ICropService):
         return crop
 
     def create_crop(self, crop_data: CropCreate) -> CropRead:
-        return self.crop_repository.create(crop_data)
+        return self.crop_repository.create(crop_data.model_dump())
 
     async def update_crop(self, crop_id: int, crop_data: CropUpdate) -> CropRead:
-        updated_crop = await self.crop_repository.update(crop_id, crop_data)
+        updated_crop = await self.crop_repository.update(
+            crop_id, crop_data.model_dump(exclude_unset=True)
+        )
         if not updated_crop:
             raise CropNotFoundError(crop_id)
         return updated_crop

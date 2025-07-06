@@ -12,7 +12,7 @@ class ProducerService(IProducerService):
         self.producer_repository = producer_repository
 
     async def get_all_producers(self) -> list[ProducerRead]:
-        return self.producer_repository.get_all()
+        return await self.producer_repository.get_all()
 
     async def get_producer_by_id(self, producer_id: int) -> ProducerRead:
         producer = await self.producer_repository.get_by_id(producer_id)
@@ -21,13 +21,13 @@ class ProducerService(IProducerService):
         return producer
 
     async def create_producer(self, producer_data: ProducerCreate) -> ProducerRead:
-        return await self.producer_repository.create(producer_data)
+        return await self.producer_repository.create(producer_data.model_dump())
 
     async def update_producer(
         self, producer_id: int, producer_data: ProducerUpdate
     ) -> ProducerRead:
         updated_producer = await self.producer_repository.update(
-            producer_id, producer_data
+            producer_id, producer_data.model_dump(exclude_unset=True)
         )
         if not updated_producer:
             raise ProducerNotFoundError(producer_id)

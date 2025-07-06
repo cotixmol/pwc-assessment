@@ -10,6 +10,10 @@ restart:
 	@echo "Restarting services..."
 	docker-compose restart
 
+delete-volume:
+	@echo "Deleting Docker volumes..."
+	docker volume rm pwc-assessment_postgres_data
+
 logs:
 	@echo "Following logs..."
 	docker-compose logs -f
