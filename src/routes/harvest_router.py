@@ -9,26 +9,26 @@ from src.interfaces.services import IHarvestService
 
 harvest_router = APIRouter(prefix="/harvests", tags=["Harvests"])
 
+HarvestService = Annotated[IHarvestService, Depends(get_harvest_service)]
+
 
 @harvest_router.get("/", response_model=list[HarvestRead])
 async def read_harvests(
-    service: Annotated[IHarvestService, Depends(get_harvest_service)],
+    harvest_service: HarvestService,
 ):
     """
     Retrieve all harvests.
     """
-    return await service.get_all_harvests()
+    return await harvest_service.get_all_harvests()
 
 
 @harvest_router.get("/{harvest_id}", response_model=HarvestRead)
-async def read_harvest(
-    harvest_id: int, service: Annotated[IHarvestService, Depends(get_harvest_service)]
-):
+async def read_harvest(harvest_id: int, harvest_service: HarvestService):
     """
     Retrieve a harvest by its ID.
     """
     try:
-        return await service.get_harvest_by_id(harvest_id)
+        return await harvest_service.get_harvest_by_id(harvest_id)
     except HarvestNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
 
@@ -38,37 +38,35 @@ async def read_harvest(
 )
 async def create_harvest(
     harvest: HarvestCreate,
-    service: Annotated[IHarvestService, Depends(get_harvest_service)],
+    harvest_service: HarvestService,
 ):
     """
     Create a new harvest.
     """
-    return await service.create_harvest(harvest)
+    return await harvest_service.create_harvest(harvest)
 
 
 @harvest_router.put("/{harvest_id}", response_model=HarvestRead)
 async def update_harvest(
     harvest_id: int,
     harvest: HarvestUpdate,
-    service: Annotated[IHarvestService, Depends(get_harvest_service)],
+    harvest_service: HarvestService,
 ):
     """
     Update an existing harvest.
     """
     try:
-        return await service.update_harvest(harvest_id, harvest)
+        return await harvest_service.update_harvest(harvest_id, harvest)
     except HarvestNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
 
 
 @harvest_router.delete("/{harvest_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_harvest(
-    harvest_id: int, service: Annotated[IHarvestService, Depends(get_harvest_service)]
-):
+async def delete_harvest(harvest_id: int, harvest_service: HarvestService):
     """
     Delete a harvest by its ID.
     """
     try:
-        await service.delete_harvest(harvest_id)
+        await harvest_service.delete_harvest(harvest_id)
     except HarvestNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
