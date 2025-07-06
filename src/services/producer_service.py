@@ -1,6 +1,7 @@
-from dtos import ProducerCreate, ProducerRead, ProducerUpdate
-from interfaces.repositories import IProducerRepository
-from interfaces.services import IProducerService
+from src.dtos import ProducerCreate, ProducerRead, ProducerUpdate
+from src.exceptions import ProducerNotFoundError
+from src.interfaces.repositories import IProducerRepository
+from src.interfaces.services import IProducerService
 
 
 class ProducerService(IProducerService):
@@ -10,19 +11,30 @@ class ProducerService(IProducerService):
         """Initialize the ProducerService with a producer repository."""
         self.producer_repository = producer_repository
 
-    def get_all_producers(self) -> list[ProducerRead]:
+    async def get_all_producers(self) -> list[ProducerRead]:
         return self.producer_repository.get_all()
 
-    def get_producer_by_id(self, producer_id: int) -> ProducerRead:
-        return self.producer_repository.get_by_id(producer_id)
+    async def get_producer_by_id(self, producer_id: int) -> ProducerRead:
+        producer = await self.producer_repository.get_by_id(producer_id)
+        if not producer:
+            raise ProducerNotFoundError(producer_id)
+        return producer
 
-    def create_producer(self, producer_data: ProducerCreate) -> ProducerRead:
-        return self.producer_repository.create(producer_data)
+    async def create_producer(self, producer_data: ProducerCreate) -> ProducerRead:
+        return await self.producer_repository.create(producer_data)
 
-    def update_producer(
+    async def update_producer(
         self, producer_id: int, producer_data: ProducerUpdate
     ) -> ProducerRead:
-        return self.producer_repository.update(producer_id, producer_data)
+        updated_producer = await self.producer_repository.update(
+            producer_id, producer_data
+        )
+        if not updated_producer:
+            raise ProducerNotFoundError(producer_id)
+        return updated_producer
 
-    def delete_producer(self, producer_id: int) -> bool:
-        return self.producer_repository.delete(producer_id)
+    async def delete_producer(self, producer_id: int) -> bool:
+        deleted = await self.producer_repository.delete(producer_id)
+        if not deleted:
+            raise ProducerNotFoundError(producer_id)
+        return deleted

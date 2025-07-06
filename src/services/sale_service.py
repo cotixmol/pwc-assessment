@@ -1,7 +1,7 @@
-from dtos import SaleCreate, SaleRead, SaleUpdate
-from exceptions import InsufficientStockError, SaleNotFoundError
-from interfaces.repositories import ISaleRepository
-from interfaces.services import ISaleService, IStockService
+from src.dtos import SaleCreate, SaleRead, SaleUpdate
+from src.exceptions import InsufficientStockError, SaleNotFoundError
+from src.interfaces.repositories import ISaleRepository
+from src.interfaces.services import ISaleService, IStockService
 
 
 class SaleService(ISaleService):

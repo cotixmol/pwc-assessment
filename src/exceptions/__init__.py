@@ -1,5 +1,9 @@
 from .exceptions import (
     HarvestNotFoundError,
     InsufficientStockError,
-    SaleNotFoundError
+    SaleNotFoundError,
+    ProducerNotFoundError,
+    CropNotFoundError,
+    NotFoundError,
+    RepositoryError,
 )

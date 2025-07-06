@@ -1,6 +1,6 @@
-from interfaces.repositories import IHarvestRepository, ISaleRepository
-from interfaces.services import IStockService
-from models.crop import CropType
+from src.interfaces.repositories import IHarvestRepository, ISaleRepository
+from src.interfaces.services import IStockService
+from src.models import CropType
 
 
 class StockService(IStockService):
