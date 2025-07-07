@@ -1,4 +1,3 @@
-
 # PWC Backend Assessment
 
 This FastAPI project manages agricultural data, including producers, crops, harvests, and sales. It demonstrates backend best practices with a clean, layered architecture.
@@ -28,13 +27,14 @@ The architecture separates concerns into routes (presentation), services (busine
 
 ### Environment Variables
 
-Before running the application, copy the example environment file and edit it as needed. Due to the nature of the project these variables, **for now**, are not sensitive.
+
+Before running the application, copy the example environment file and edit it as needed. For now, these variables are not sensitive.
 
 ```bash
 cp .env.example .env
 ```
 
-Edit the new `.env` file in the root directory. Ensure `DATABASE_URL` matches the `POSTGRES` variables. You can use any user, password, and database name you like. Docker will handle database creation for you. 💡
+Edit the new `.env` file in the root directory. Ensure that `DATABASE_URL` matches the `POSTGRES` variables. You can use any user, password, and database name you like. Docker will handle database creation for you. 💡
 
 ```env
 DATABASE_URL=postgresql+asyncpg://usuariopwc:password123@db:5432/pwc_assessment
@@ -43,6 +43,13 @@ POSTGRES_PASSWORD=password123
 POSTGRES_DB=pwc_assessment
 LOG_LEVEL=INFO
 VERSION=1.0.0
+```
+
+
+For Alembic migrations, version files are created locally. For this, a `.env.local` file is needed. In this file, you only need to set the `DATABASE_URL` variable, but it should point to `localhost` instead of `db`:
+
+```env
+DATABASE_URL=postgresql+asyncpg://usuariopwc:password123@localhost:5432/pwc_assessment
 ```
 
 ### Running the Application
@@ -184,6 +191,30 @@ erDiagram
 
 ---
 
+## 🔗 Potential External Integration: Crop Price Service.
+
+The FastAPI application could be integrated with an external service to fetch real-time market prices for crops. This will be use to provide the price for a sale.
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant F as FastAPI App
+    participant S as SaleService
+    participant M as MarketPriceService
+    participant E as External Market Price API
+
+    C->>F: 1. POST /sales (Create Sale Request)
+    F->>S: 2. Call create_sale(sale_data)
+    S->>M: 3. Request current_price_for_crop(crop_type)
+    M->>E: 4. Query External Market Price API (e.g., GET /prices?crop=soybean)
+    E-->>M: 5. Return current_price (e.g., $500/tonne)
+    M-->>S: 6. Provide current_price
+    S->>S: 7. Use price to process sale and validate internal business rules
+    S-->>F: 8. Return created Sale
+    F-->>C: 9. Return 201 Created (Sale data)
+```
+
+---
 
 ## 🛠️ Troubleshooting
 
@@ -195,8 +226,8 @@ On macOS or Linux, find and kill the process using its PID:
 
 ```bash
 # Find the process ID (PID) using the port
-lsof -i :5432
+sudo lsof -i :5432
 
 # Kill the process using its PID
-kill -9 <PID>
+sudo kill -9 <PID>
 ```
