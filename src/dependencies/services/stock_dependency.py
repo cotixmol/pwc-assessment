@@ -4,15 +4,20 @@ from fastapi import Depends
 
 from src.dependencies.repositories import (
     get_harvest_sql_repository,
+    get_producer_sql_repository,
     get_sale_sql_repository,
 )
-from src.interfaces.repositories import IHarvestRepository, ISaleRepository
+from src.interfaces.repositories import (
+    IHarvestRepository,
+    IProducerRepository,
+    ISaleRepository,
+)
 from src.interfaces.services import IStockService
 from src.services import StockService
 
 HarvestRepo = Annotated[IHarvestRepository, Depends(get_harvest_sql_repository)]
 SaleRepo = Annotated[ISaleRepository, Depends(get_sale_sql_repository)]
-ProducerRepo = Annotated[ISaleRepository, Depends(get_sale_sql_repository)]
+ProducerRepo = Annotated[IProducerRepository, Depends(get_producer_sql_repository)]
 
 
 def get_stock_service(

@@ -46,7 +46,7 @@ class BaseSQLRepository(IBaseRepository[T]):
             raise RepositoryError(f"Failed to retrieve object with ID {obj_id}.") from e
 
     async def create(self, obj_data: dict) -> T:
-        # NOTE: This block sanitizes the input dictionary before it's used to
+        # This block sanitizes the input dictionary before it's used to
         # create a database model. It automatically finds any Python enum members
         # and converts them to their primitive values.
         try:

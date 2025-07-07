@@ -22,8 +22,8 @@ class CropService(ICropService):
         self.harvest_repository = harvest_repository
         self.sale_repository = sale_repository
 
-    def get_all_crops(self) -> list[CropRead]:
-        return self.crop_repository.get_all()
+    async def get_all_crops(self) -> list[CropRead]:
+        return await self.crop_repository.get_all()
 
     async def get_crop_by_id(self, crop_id: int) -> CropRead:
         crop = await self.crop_repository.get_by_id(crop_id)
@@ -31,8 +31,8 @@ class CropService(ICropService):
             raise CropNotFoundError(crop_id)
         return crop
 
-    def create_crop(self, crop_data: CropCreate) -> CropRead:
-        return self.crop_repository.create(crop_data.model_dump())
+    async def create_crop(self, crop_data: CropCreate) -> CropRead:
+        return await self.crop_repository.create(crop_data.model_dump())
 
     async def update_crop(self, crop_id: int, crop_data: CropUpdate) -> CropRead:
         updated_crop = await self.crop_repository.update(

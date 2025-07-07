@@ -26,10 +26,8 @@ dotenv_path = os.path.join(project_root, '.env')
 
 # Prioritize .env.local for local development overrides
 if os.path.exists(dotenv_local_path):
-    print("INFO: Alembic loading environment from .env.local")
     load_dotenv(dotenv_path=dotenv_local_path, override=True)
 elif os.path.exists(dotenv_path):
-    print("INFO: Alembic loading environment from .env")
     load_dotenv(dotenv_path=dotenv_path)
 
 # --- Alembic Configuration ---
