@@ -1,3 +1,7 @@
+# ruff: noqa: E402
+from dotenv import load_dotenv
+
+load_dotenv()
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
