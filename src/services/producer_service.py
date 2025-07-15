@@ -45,6 +45,10 @@ class ProducerService(IProducerService):
             raise ProducerNotFoundError(producer_id)
 
         stock_errors = []
+        # TODO: Implement a get_available_stocks method in stock_service
+        # to retrieve available stock for all crop types for the producer.
+        # This will help in checking if the producer can be deleted.
+        # For now, we will check stock for each crop type.
         for crop_type in CropType:
             stock = await self.stock_service.get_available_stock(producer_id, crop_type)
             if stock > 0:
