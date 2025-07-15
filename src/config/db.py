@@ -11,12 +11,9 @@ from src.config.secrets import secrets
 engine = create_async_engine(
     secrets.DATABASE_URL,
     pool_pre_ping=True,
-    echo=False,
 )
 
-async_session_factory = async_sessionmaker(
-    engine, expire_on_commit=False, class_=AsyncSession
-)
+async_session_factory = async_sessionmaker(engine, expire_on_commit=False)
 
 
 async def get_db_session() -> AsyncGenerator[AsyncSession, None]:

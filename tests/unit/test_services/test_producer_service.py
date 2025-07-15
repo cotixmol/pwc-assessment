@@ -7,18 +7,6 @@ from src.exceptions import DeletionError, ProducerNotFoundError
 from src.services.producer_service import ProducerService
 
 
-@pytest.mark.asyncio
-async def test_get_all_producers_empty():
-    """Test retrieving all producers when none exist."""
-    service, mock_producer_repo, _ = create_mocked_producer_service()
-    mock_producer_repo.get_all.return_value = []
-
-    result = await service.get_all_producers()
-
-    assert result == []
-    mock_producer_repo.get_all.assert_called_once()
-
-
 def create_mocked_producer_service():
     mock_producer_repo = AsyncMock()
     mock_stock_service = MagicMock()
@@ -29,6 +17,18 @@ def create_mocked_producer_service():
         stock_service=mock_stock_service,
     )
     return service, mock_producer_repo, mock_stock_service
+
+
+@pytest.mark.asyncio
+async def test_get_all_producers_empty():
+    """Test retrieving all producers when none exist."""
+    service, mock_producer_repo, _ = create_mocked_producer_service()
+    mock_producer_repo.get_all.return_value = []
+
+    result = await service.get_all_producers()
+
+    assert result == []
+    mock_producer_repo.get_all.assert_called_once()
 
 
 @pytest.mark.asyncio
