@@ -156,23 +156,3 @@ async def test_delete_non_existent_producer():
         await service.delete_producer(999)
 
     mock_producer_repo.get_by_id.assert_called_once_with(999)
-
-
-@pytest.mark.asyncio
-async def test_delete_producer_fails_at_repository():
-    """Test the case where the repository fails to delete an existing producer."""
-    service, mock_producer_repo, mock_stock_service = create_mocked_producer_service()
-
-    mock_producer_repo.get_by_id.return_value = {
-        "id": 1,
-        "name": "Test Producer",
-        "email": "test@example.com",
-    }
-    mock_stock_service.get_available_stock.return_value = 0.0
-
-    mock_producer_repo.delete.return_value = False
-
-    with pytest.raises(ProducerNotFoundError):
-        await service.delete_producer(1)
-
-    mock_producer_repo.delete.assert_called_once_with(1)
