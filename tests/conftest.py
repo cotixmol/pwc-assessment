@@ -30,6 +30,6 @@ def test_producer_client():
     app.dependency_overrides[get_producer_service] = fake_get_producer_service
 
     with TestClient(app) as client:
-        yield client, fake_producer_repo, mock_stock_service
+        yield client, mock_stock_service
 
     app.dependency_overrides.clear()

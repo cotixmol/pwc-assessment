@@ -1,12 +1,12 @@
 def test_read_producers(test_producer_client):
-    client, _, _ = test_producer_client
+    client, _ = test_producer_client
     response = client.get("/producers/")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
 
 def test_create_producer(test_producer_client):
-    client, _, _ = test_producer_client
+    client, _ = test_producer_client
     response = client.post(
         "/producers/",
         json={"name": "Integration Test Producer", "email": "integration@test.com"},
@@ -18,7 +18,7 @@ def test_create_producer(test_producer_client):
 
 
 def test_read_producer(test_producer_client):
-    client, _, _ = test_producer_client
+    client, _ = test_producer_client
     response = client.post(
         "/producers/", json={"name": "Another Producer", "email": "another@test.com"}
     )
@@ -31,7 +31,7 @@ def test_read_producer(test_producer_client):
 
 
 def test_update_producer(test_producer_client):
-    client, _, _ = test_producer_client
+    client, _ = test_producer_client
     response = client.post(
         "/producers/", json={"name": "Producer to Update", "email": "update@test.com"}
     )
@@ -44,7 +44,7 @@ def test_update_producer(test_producer_client):
 
 
 def test_delete_producer(test_producer_client):
-    client, _, mock_stock_service = test_producer_client
+    client, mock_stock_service = test_producer_client
     response = client.post(
         "/producers/", json={"name": "Producer to Delete", "email": "delete@test.com"}
     )
@@ -60,19 +60,19 @@ def test_delete_producer(test_producer_client):
 
 
 def test_read_non_existent_producer(test_producer_client):
-    client, _, _ = test_producer_client
+    client, _ = test_producer_client
     response = client.get("/producers/999")
     assert response.status_code == 404
 
 
 def test_update_non_existent_producer(test_producer_client):
-    client, _, _ = test_producer_client
+    client, _ = test_producer_client
     response = client.put("/producers/999", json={"name": "New Name"})
     assert response.status_code == 404
 
 
 def test_delete_producer_with_stock(test_producer_client):
-    client, _, mock_stock_service = test_producer_client
+    client, mock_stock_service = test_producer_client
     response = client.post(
         "/producers/", json={"name": "Producer With Stock", "email": "stock@test.com"}
     )
@@ -86,7 +86,7 @@ def test_delete_producer_with_stock(test_producer_client):
 
 
 def test_create_producer_with_invalid_email(test_producer_client):
-    client, _, _ = test_producer_client
+    client, _ = test_producer_client
     response = client.post(
         "/producers/", json={"name": "Bad Email Producer", "email": "not-an-email"}
     )
